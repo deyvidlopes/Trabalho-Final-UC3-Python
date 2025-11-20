@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3 class="mb-4">Nossos Produtos</h3>
+
+    <div class="row">
+        {% for produto in produtos %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if produto.imagem %}
+                    <img src="{{ produto.imagem.url }}" class="card-img-top" alt="{{ produto.nome }}" style="height: 100%auto; object-fit: cover;">
+                {% else %}
+                    <div class="d-flex align-items-center justify-content-center bg-secondary text-white" style="height: 100%auto;">
+                        Sem Imagem
+                    </div>
+                {% endif %}
+                
+                <div class="card-body">
+                    <h5 class="card-title">{{ produto.nome }}</h5>
+                    <p class="card-text text-muted">{{ produto.descricao|truncatechars:50 }}</p>
+                    <h4 class="text-primary">R$ {{ produto.preco }}</h4>
+                    <span class="badge bg-info">{{ produto.categoria }}</span>
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                    <a href="{% url 'detalhe_produto' produto.pk %}" class="btn btn-primary w-100">Ver Detalhes</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-warning">Nenhum produto encontrado.</div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
