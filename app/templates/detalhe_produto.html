@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="d-grid gap-2">
-                    <button class="btn btn-success btn-lg" type="button">Adicionar ao Carrinho</button>
+                    <a href="{% url 'add_carrinho' produto.pk %}" class="btn btn-success btn-lg">Adicionar ao Carrinho</a>                    
                     <a href="{% url 'index' %}" class="btn btn-outline-secondary">Voltar para a Loja</a>
                 </div>
             </div>

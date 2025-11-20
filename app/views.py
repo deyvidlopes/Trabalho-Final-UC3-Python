@@ -33,3 +33,57 @@ def detalhe_produto(request, pk):
         'produto': produto
     }
     return render(request, 'detalhe_produto.html', context)
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.forms import UserCreationForm # Importe o formulário pronto
+from .models import Produto
+
+# ... (suas views index e detalhe_produto) ...
+
+def cadastro(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login') # Vai para o login após criar conta
+    else:
+        form = UserCreationForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'cadastro.html', context)
+
+def adicionar_carrinho(request, pk):
+    # Pega o carrinho da sessão ou cria uma lista vazia se não existir
+    carrinho = request.session.get('carrinho', [])
+    
+    # Adiciona o ID do produto ao carrinho (se já não estiver lá, para não duplicar)
+    if pk not in carrinho:
+        carrinho.append(pk)
+        
+    # Salva de volta na sessão
+    request.session['carrinho'] = carrinho
+    
+    return redirect('index')
+
+def ver_carrinho(request):
+    # Pega os IDs salvos na sessão
+    ids_carrinho = request.session.get('carrinho', [])
+    
+    # Busca os produtos reais no banco baseados nesses IDs
+    produtos = Produto.objects.filter(id__in=ids_carrinho)
+    
+    context = {
+        'produtos': produtos
+    }
+    return render(request, 'carrinho.html', context)
+
+def remover_carrinho(request, pk):
+    carrinho = request.session.get('carrinho', [])
+    
+    if pk in carrinho:
+        carrinho.remove(pk)
+    
+    request.session['carrinho'] = carrinho
+    return redirect('ver_carrinho')

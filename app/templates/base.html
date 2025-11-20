@@ -25,6 +25,8 @@
                     </span>
                     <form action="{% url 'logout' %}" method="post" class="d-inline">
                         {% csrf_token %}
+                        <a href="{% url 'ver_carrinho' %}" class="btn btn-outline-primary position-relative me-3">
+    Carrinho</a>
                         <button type="submit" class="btn btn-sm btn-outline-danger">Sair</button>
                     </form>
                     

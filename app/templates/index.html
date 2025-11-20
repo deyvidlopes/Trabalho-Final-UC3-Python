@@ -22,7 +22,8 @@
                     <span class="badge bg-info">{{ produto.categoria }}</span>
                 </div>
                 <div class="card-footer bg-white border-top-0">
-                    <a href="{% url 'detalhe_produto' produto.pk %}" class="btn btn-primary w-100">Ver Detalhes</a>
+                    <a href="{% url 'detalhe_produto' produto.pk %}" class="btn btn-primary">Ver Detalhes</a>
+                    <a href="{% url 'add_carrinho' produto.pk %}" class="btn btn-success">Comprar</a>
                 </div>
             </div>
         </div>
