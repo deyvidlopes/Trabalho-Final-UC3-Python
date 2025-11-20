@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">Loja Resina e Cia</a>
+            
+            <form class="d-flex" action="{% url 'index' %}" method="GET">
+                <input class="form-control me-2" type="search" name="busca" placeholder="Buscar produto..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+            
+            <div class="ms-3 d-flex align-items-center">
+    
+                {% if user.is_authenticated %}
+                    <span class="navbar-text me-3 text-white">
+                        Olá, <strong>{{ user.username }}</strong>
+                    </span>
+                    <form action="{% url 'logout' %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <a href="{% url 'ver_carrinho' %}" class="btn btn-outline-primary position-relative me-3">
+    Carrinho</a>
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Sair</button>
+                    </form>
+                    
+                    {% if user.is_superuser %}
+                        <a href="/admin/" class="btn btn-sm btn-warning ms-2">Admin</a>
+                    {% endif %}
+            
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-sm btn-light">Entrar</a>
+                {% endif %}              
+            </div>
+        </div>
+    </nav>

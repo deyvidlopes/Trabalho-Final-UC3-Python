@@ -1,0 +1,13 @@
+/* Personalização exigida no Item 7 */
+body {
+    background-color: #f8f9fa; /* Um cinza bem clarinho */
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.02); /* Efeito de zoom leve ao passar o mouse no produto */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
