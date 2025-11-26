@@ -22,7 +22,6 @@ Projeto final desenvolvido para a U.C. 3 do curso de Python. O sistema consiste 
     git clone <link-do-seu-repositorio-aqui>
     cd projeto_final_python
     
-
 2.  *Crie e ative o ambiente virtual:*
     bash
     # Windows
@@ -33,27 +32,22 @@ Projeto final desenvolvido para a U.C. 3 do curso de Python. O sistema consiste 
     python3 -m venv venv
     source venv/bin/activate
     
-
 3.  *Instale as dependências:*
     bash
     pip install -r requirements.txt
     
-
 4.  *Aplique as migrações ao banco de dados:*
     bash
     python manage.py migrate
     
-
 5.  *Crie um superusuário (para acessar o painel admin):*
     bash
     python manage.py createsuperuser
     
-
 6.  *Inicie o servidor:*
     bash
     python manage.py runserver
     
-
 7.  *Acesse no navegador:*
     * Loja: http://127.0.0.1:8000/
-    * Admin: http://127.0.0.1:8000/admin/
+    * Admin: http://127.0.0.1:8000/admin

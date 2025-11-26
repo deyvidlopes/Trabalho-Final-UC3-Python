@@ -11,3 +11,26 @@ body {
     transform: scale(1.02); /* Efeito de zoom leve ao passar o mouse no produto */
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
+
+/* Botão Voltar ao Topo */
+#btn-back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none; /* Começa escondido */
+    z-index: 9999; /* Fica na frente de tudo */
+    border-radius: 50%; /* Redondo */
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    padding: 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3); /* Sombra */
+    background-color: #0d6efd; /* Cor azul do Bootstrap */
+    color: white;
+    border: none;
+    transition: transform 0.2s; /* Animação suave */
+}
+
+#btn-back-to-top:hover {
+    transform: scale(1.1); /* Cresce um pouquinho ao passar o mouse */
+}
