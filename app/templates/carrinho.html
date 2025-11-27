@@ -1,31 +1,78 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Meu Carrinho</h2>
-<table class="table mt-4">
-    <thead>
-        <tr>
-            <th>Produto</th>
-            <th>Preço</th>
-            <th>Ação</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for produto in produtos %}
-        <tr>
-            <td>{{ produto.nome }}</td>
-            <td>R$ {{ produto.preco }}</td>
-            <td>
-                <a href="{% url 'remove_carrinho' produto.pk %}" class="btn btn-sm btn-danger">Remover</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="3" class="text-center">Seu carrinho está vazio.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<a href="{% url 'index' %}" class="btn btn-secondary mt-3">Continuar Comprando</a>
-<button class="btn btn-success mt-3 float-end">Finalizar Pedido</button>
+<div class="container mt-4">
+    <h2 class="mb-4">Meu Carrinho</h2>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th scope="col" class="ps-4">Produto</th>
+                        <th scope="col">Preço</th>
+                        <th scope="col" class="text-end pe-4">Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produto in produtos %}
+                    <tr>
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center">
+                                {% if produto.imagem %}
+                                    <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" 
+                                         class="rounded border me-3" 
+                                         style="width: 60px; height: 60px; object-fit: contain; background: #fff;">
+                                {% else %}
+                                    <div class="rounded border me-3 d-flex align-items-center justify-content-center bg-light" 
+                                         style="width: 60px; height: 60px;">
+                                        <small class="text-muted">Sem Ft</small>
+                                    </div>
+                                {% endif %}
+                                
+                                <a href="{% url 'detalhe_produto' produto.pk %}" class="text-decoration-none text-dark fw-bold">
+                                    {{ produto.nome }}
+                                </a>
+                            </div>
+                        </td>
+                        <td class="fw-bold text-secondary">R$ {{ produto.preco }}</td>
+                        <td class="text-end pe-4">
+                            <a href="{% url 'remove_carrinho' produto.pk %}" class="btn btn-sm btn-outline-danger">
+                                Remover
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center py-5 text-muted">
+                            Seu carrinho está vazio.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+                {% if produtos %}
+                <tfoot class="table-light">
+                    <tr>
+                        <td class="text-end fw-bold fs-5 pt-3 pb-3">TOTAL:</td>
+                        <td class="fw-bold text-success fs-4 pt-3 pb-3">R$ {{ total }}</td>
+                        <td></td> </tr>
+                </tfoot>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4 mb-5">
+        <a href="{% url 'index' %}" class="btn btn-outline-secondary btn-lg">
+            ← Continuar Comprando
+        </a>
+        
+        {% if produtos %}
+        <button class="btn btn-success btn-lg shadow">
+            Finalizar Compra
+        </button>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

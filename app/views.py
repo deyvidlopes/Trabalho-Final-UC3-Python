@@ -72,11 +72,16 @@ def ver_carrinho(request):
     # Pega os IDs salvos na sessão
     ids_carrinho = request.session.get('carrinho', [])
     
-    # Busca os produtos reais no banco baseados nesses IDs
+    # Busca os produtos reais no banco
     produtos = Produto.objects.filter(id__in=ids_carrinho)
     
+    # === NOVA LÓGICA: CALCULAR TOTAL ===
+    # Soma o preço de todos os produtos da lista
+    total = sum([produto.preco for produto in produtos])
+    
     context = {
-        'produtos': produtos
+        'produtos': produtos,
+        'total': total # Enviamos o total para o HTML
     }
     return render(request, 'carrinho.html', context)
 
