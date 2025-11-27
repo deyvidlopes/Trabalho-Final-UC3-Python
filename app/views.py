@@ -55,17 +55,18 @@ def cadastro(request):
     return render(request, 'cadastro.html', context)
 
 def adicionar_carrinho(request, pk):
-    # Pega o carrinho da sessão ou cria uma lista vazia se não existir
+    # Pega o carrinho da sessão ou cria lista vazia
     carrinho = request.session.get('carrinho', [])
     
-    # Adiciona o ID do produto ao carrinho (se já não estiver lá, para não duplicar)
+    # Adiciona se não existir
     if pk not in carrinho:
         carrinho.append(pk)
         
-    # Salva de volta na sessão
+    # Salva na sessão
     request.session['carrinho'] = carrinho
     
-    return redirect('index')
+    # MUDANÇA AQUI: Em vez de voltar para 'index', vai para o carrinho
+    return redirect('ver_carrinho')
 
 def ver_carrinho(request):
     # Pega os IDs salvos na sessão

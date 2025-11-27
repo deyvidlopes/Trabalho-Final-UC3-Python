@@ -28,3 +28,12 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
+    
+    # ... (sua classe Categoria e Produto acima) ...
+
+class ImagemProduto(models.Model):
+    produto = models.ForeignKey(Produto, related_name='outras_imagens', on_delete=models.CASCADE)
+    imagem = models.ImageField(upload_to='produtos_extras/')
+
+    def __str__(self):
+        return f"Imagem extra de {self.produto.nome}"

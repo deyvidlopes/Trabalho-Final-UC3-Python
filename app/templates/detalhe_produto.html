@@ -1,39 +1,81 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card shadow-sm mt-4">
+<div class="card shadow-sm mt-4 border-0">
     <div class="row g-0">
-        <div class="col-md-6 bg-light d-flex align-items-center justify-content-center">
-            {% if produto.imagem %}
-                <img src="{{ produto.imagem.url }}" class="img-fluid rounded-start" alt="{{ produto.nome }}" style="max-height: 500px;">
-            {% else %}
-                <div class="p-5 text-muted">Sem Imagem Disponível</div>
-            {% endif %}
+        
+        <div class="col-md-6 bg-white d-flex align-items-center justify-content-center p-3 border-end">
+            
+            <div style="width: 100%; height: 500px;"> {% if produto.outras_imagens.all %}
+                
+                    <div id="carouselDetail" class="carousel slide h-100" data-bs-interval="false">
+                        <div class="carousel-inner h-100">
+                            
+                            <div class="carousel-item active h-100">
+                                <div class="d-flex align-items-center justify-content-center h-100 w-100">
+                                    <img src="{{ produto.imagem.url }}" class="d-block" alt="{{ produto.nome }}" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                                </div>
+                            </div>
+
+                            {% for foto_extra in produto.outras_imagens.all %}
+                            <div class="carousel-item h-100">
+                                <div class="d-flex align-items-center justify-content-center h-100 w-100">
+                                    <img src="{{ foto_extra.imagem.url }}" class="d-block" alt="Imagem extra" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselDetail" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true" style="background-size: 50%;"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselDetail" data-bs-slide="next">
+                            <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true" style="background-size: 50%;"></span>
+                            <span class="visually-hidden">Próximo</span>
+                        </button>
+                    </div>
+
+                {% else %}
+                    <div class="d-flex align-items-center justify-content-center h-100 w-100">
+                        {% if produto.imagem %}
+                            <img src="{{ produto.imagem.url }}" class="img-fluid" alt="{{ produto.nome }}" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                        {% else %}
+                            <div class="text-muted">Sem Imagem Disponível</div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+            </div>
         </div>
         
         <div class="col-md-6">
             <div class="card-body p-5">
-                <small class="text-muted text-uppercase">{{ produto.categoria }}</small>
-                <h1 class="card-title mb-3">{{ produto.nome }}</h1>
+                <small class="text-muted text-uppercase fw-bold">{{ produto.categoria }}</small>
+                <h1 class="card-title mb-3 fw-bold">{{ produto.nome }}</h1>
                 
-                <h2 class="text-primary mb-4">R$ {{ produto.preco }}</h2>
+                <h2 class="text-primary mb-4 display-6">R$ {{ produto.preco }}</h2>
                 
-                <p class="card-text lead">{{ produto.descricao }}</p>
-                
-                <hr>
+                <p class="card-text lead mb-5">{{ produto.descricao }}</p>
                 
                 <div class="d-flex align-items-center mb-4">
-                    <span class="me-3">Status:</span>
+                    <span class="me-3 fw-bold">Disponibilidade:</span>
                     {% if produto.estoque > 0 %}
-                        <span class="badge bg-success">Em Estoque ({{ produto.estoque }})</span>
+                        <span class="badge bg-success px-3 py-2">Em Estoque ({{ produto.estoque }})</span>
                     {% else %}
-                        <span class="badge bg-danger">Esgotado</span>
+                        <span class="badge bg-danger px-3 py-2">Esgotado</span>
                     {% endif %}
                 </div>
 
-                <div class="d-grid gap-2">
-                    <a href="{% url 'add_carrinho' produto.pk %}" class="btn btn-success btn-lg">Adicionar ao Carrinho</a>                    
-                    <a href="{% url 'index' %}" class="btn btn-outline-secondary">Voltar para a Loja</a>
+                <hr class="my-4">
+
+                <div class="d-grid gap-3">
+                    <a href="{% url 'add_carrinho' produto.pk %}" class="btn btn-success btn-lg">
+                        Adicionar ao Carrinho
+                    </a>
+                    <a href="{% url 'index' %}" class="btn btn-outline-secondary">
+                        Voltar para a Loja
+                    </a>
                 </div>
             </div>
         </div>
