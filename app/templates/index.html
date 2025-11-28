@@ -18,20 +18,18 @@
                 <p class="fs-5">Descontos de até 70% em toda a loja.</p>
             </div>
         </div>
-        
         <div class="carousel-item" data-bs-interval="4000">
-            <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?q=80&w=1200&h=400&fit=crop" class="d-block w-100" alt="Eletrônicos" style="object-fit: cover; height: 350px;">
+            <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?q=80&w=1200&h=400&fit=crop" class="d-block w-100" alt="Tecnologia" style="object-fit: cover; height: 350px;">
             <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
                 <h2 class="fw-bold">Tecnologia de Ponta</h2>
                 <p class="fs-5">Os melhores gadgets você encontra aqui.</p>
             </div>
         </div>
-        
         <div class="carousel-item" data-bs-interval="4000">
-            <img src="https://images.unsplash.com/photo-1586880244406-556ebe35f282?q=80&w=1200&h=400&fit=crop" class="d-block w-100" alt="Entrega Rápida" style="object-fit: cover; height: 350px;">
+            <img src="https://images.unsplash.com/photo-1586880244406-556ebe35f282?q=80&w=1200&h=400&fit=crop" class="d-block w-100" alt="Entrega" style="object-fit: cover; height: 350px;">
             <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
                 <h2 class="fw-bold">Entrega Rápida</h2>
-                <p class="fs-5">Frete grátis para todo o Brasil nas compras acima de R$ 200.</p>
+                <p class="fs-5">Frete grátis para todo o Brasil.</p>
             </div>
         </div>
     </div>
@@ -56,41 +54,15 @@
             
             <div class="produto-img-container" style="height: 200px; padding: 0; border-bottom: 1px solid #f0f0f0;">
                 
-                {% if produto.outras_imagens.all %}
-                    <div id="carousel-{{ produto.id }}" class="carousel slide h-100" data-bs-interval="false">
-                        <div class="carousel-inner h-100">
-                            <div class="carousel-item active h-100">
-                                <a href="{% url 'detalhe_produto' produto.pk %}" class="d-flex align-items-center justify-content-center h-100 w-100">
-                                    <img src="{{ produto.imagem.url }}" class="d-block" style="max-height: 100%; max-width: 100%; object-fit: contain;">
-                                </a>
-                            </div>
-                            {% for foto_extra in produto.outras_imagens.all %}
-                            <div class="carousel-item h-100">
-                                <a href="{% url 'detalhe_produto' produto.pk %}" class="d-flex align-items-center justify-content-center h-100 w-100">
-                                    <img src="{{ foto_extra.imagem.url }}" class="d-block" style="max-height: 100%; max-width: 100%; object-fit: contain;">
-                                </a>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ produto.id }}" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true" style="background-size: 50%;"></span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ produto.id }}" data-bs-slide="next">
-                            <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true" style="background-size: 50%;"></span>
-                        </button>
-                    </div>
-
-                {% else %}
-                    <div style="height: 100%; background: white;">
-                        <a href="{% url 'detalhe_produto' produto.pk %}" style="height: 100%; display: flex; align-items: center; justify-content: center; padding: 10px;">
-                            {% if produto.imagem %}
-                                <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" style="max-height: 100%; max-width: 100%; object-fit: contain;">
-                            {% else %}
-                                <span class="text-muted small">Sem Foto</span>
-                            {% endif %}
-                        </a>
-                    </div>
-                {% endif %}
+                <div style="height: 100%; background: white;">
+                    <a href="{% url 'detalhe_produto' produto.pk %}" style="height: 100%; display: flex; align-items: center; justify-content: center; padding: 10px;">
+                        {% if produto.imagem %}
+                            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                        {% else %}
+                            <span class="text-muted small">Sem Foto</span>
+                        {% endif %}
+                    </a>
+                </div>
 
             </div>
     
